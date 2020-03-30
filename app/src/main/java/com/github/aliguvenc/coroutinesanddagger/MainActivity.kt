@@ -14,10 +14,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.mainActivityComponent().create().inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        (application as MyApplication).appComponent.getMainActivityComponent().inject(this)
 
         val viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         viewModel.products.observe(this, Observer { })

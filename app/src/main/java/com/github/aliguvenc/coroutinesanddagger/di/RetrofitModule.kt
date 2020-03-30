@@ -1,4 +1,4 @@
-package com.github.aliguvenc.coroutinesanddagger.dagger
+package com.github.aliguvenc.coroutinesanddagger.di
 
 import com.github.aliguvenc.coroutinesanddagger.BuildConfig
 import com.github.aliguvenc.coroutinesanddagger.CustomInterceptor
@@ -27,11 +27,6 @@ abstract class RetrofitModule {
             httpLoggingInterceptor: HttpLoggingInterceptor,
             customInterceptor: CustomInterceptor
         ): OkHttpClient {
-            httpLoggingInterceptor.level = if (BuildConfig.DEBUG) {
-                HttpLoggingInterceptor.Level.BODY
-            } else {
-                HttpLoggingInterceptor.Level.BASIC
-            }
             return OkHttpClient.Builder()
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(httpLoggingInterceptor)
@@ -43,7 +38,7 @@ abstract class RetrofitModule {
         @Singleton
         fun provideLoggingInterceptor(): HttpLoggingInterceptor {
             return HttpLoggingInterceptor().apply {
-                this.level = if (BuildConfig.DEBUG) {
+                level = if (BuildConfig.DEBUG) {
                     HttpLoggingInterceptor.Level.BODY
                 } else {
                     HttpLoggingInterceptor.Level.BASIC

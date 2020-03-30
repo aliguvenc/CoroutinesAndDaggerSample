@@ -11,12 +11,11 @@ class SecondActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.secondActivityComponent().create().inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-        (application as MyApplication).appComponent.getSecondActivityComponent().inject(this)
 
         val viewModel = ViewModelProvider(this, viewModelFactory)[SecondViewModel::class.java]
         viewModel.products.observe(this, Observer { })
