@@ -2,6 +2,7 @@ package com.github.aliguvenc.coroutinesanddagger
 
 import android.app.Application
 import com.github.aliguvenc.coroutinesanddagger.dagger.AppComponent
+import com.github.aliguvenc.coroutinesanddagger.dagger.AppContextModule
 import com.github.aliguvenc.coroutinesanddagger.dagger.DaggerAppComponent
 
 class MyApplication : Application() {
@@ -11,6 +12,6 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        appComponent = DaggerAppComponent.builder().build()
+        appComponent = DaggerAppComponent.builder().appContextModule(AppContextModule(this)).build()
     }
 }
