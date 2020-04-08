@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.github.aliguvenc.coroutinesanddagger.SecondActivity"></activity>
+        <activity android:name="com.github.aliguvenc.coroutinesanddagger.SecondActivity" />
         <activity android:name="com.github.aliguvenc.coroutinesanddagger.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

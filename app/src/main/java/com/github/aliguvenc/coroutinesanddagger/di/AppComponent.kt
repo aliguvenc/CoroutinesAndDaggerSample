@@ -1,12 +1,12 @@
 package com.github.aliguvenc.coroutinesanddagger.di
 
-import android.app.Application
+import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Component(
-    modules = [RetrofitModule::class, AppSubComponents::class]
+    modules = [RetrofitModule::class, AppSubComponents::class, AppDataModule::class, ViewModelFactoryModule::class]
 )
 @Singleton
 interface AppComponent {
@@ -14,7 +14,10 @@ interface AppComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(@BindsInstance application: Application): AppComponent
+        /**
+         * @param context Dagger graph içerisinde [context] gereken yerlerde kullanmak için
+         */
+        fun create(@BindsInstance context: Context): AppComponent
     }
 
     fun mainActivityComponent(): MainActivityComponent.Factory

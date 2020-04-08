@@ -1,4 +1,4 @@
-package com.github.aliguvenc.coroutinesanddagger.extesions
+package com.github.aliguvenc.coroutinesanddagger.extensions
 
 import android.app.Activity
 import android.content.Intent

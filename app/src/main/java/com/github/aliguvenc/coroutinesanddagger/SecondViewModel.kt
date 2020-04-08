@@ -5,10 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import javax.inject.Inject
 
-class SecondViewModel @Inject constructor(private val productRepository: ProductRepository) :
+
+class SecondViewModel @Inject constructor(private val photoRepository: PhotoRepository) :
     ViewModel() {
 
-    val products: LiveData<ApiResult<Product>> = liveData {
-        emitSource(productRepository.productResult)
+    val products: LiveData<ApiResult<List<PhotoModel>>> = liveData {
+        emitSource(photoRepository.photoModelResult)
     }
 }

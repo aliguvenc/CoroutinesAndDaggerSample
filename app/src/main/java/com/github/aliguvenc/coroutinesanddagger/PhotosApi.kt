@@ -3,9 +3,9 @@ package com.github.aliguvenc.coroutinesanddagger
 import retrofit2.Response
 import retrofit2.http.GET
 
-interface ProductApi {
+interface PhotosApi {
 
-    @GET("products.json")
-    suspend fun getProducts(): Response<Product>
+    @GET("photos")
+    suspend fun getProducts(): Response<List<PhotoModel>>
 
 }

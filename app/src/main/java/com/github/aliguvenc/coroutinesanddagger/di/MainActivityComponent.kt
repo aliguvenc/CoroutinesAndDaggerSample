@@ -3,6 +3,7 @@ package com.github.aliguvenc.coroutinesanddagger.di
 import com.github.aliguvenc.coroutinesanddagger.MainActivity
 import dagger.Subcomponent
 
+@ActivityScope
 @Subcomponent(modules = [ProductModule::class, MainViewModelModule::class])
 interface MainActivityComponent {
 

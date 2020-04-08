@@ -2,9 +2,15 @@ package com.github.aliguvenc.coroutinesanddagger
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.github.aliguvenc.coroutinesanddagger.adapter.PhotoRecyclerViewAdapter
+import com.github.aliguvenc.coroutinesanddagger.databinding.ActivityMainBinding
+import com.github.aliguvenc.coroutinesanddagger.extensions.openActivity
+import com.github.aliguvenc.coroutinesanddagger.listeners.SelectionListener
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -13,19 +19,28 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private val mainViewModel by viewModels<MainViewModel> { viewModelFactory }
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.mainActivityComponent().create().inject(this)
+
+        val mainActivityComponent =
+            (application as MyApplication).appComponent.mainActivityComponent().create()
+        mainActivityComponent.inject(this)
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-        viewModel.products.observe(this, Observer { })
+        val binding =
+            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+                .apply {
+                    viewModel = mainViewModel
+                    lifecycleOwner = this@MainActivity
+                }
 
-        textView.setOnClickListener {
-            startActivity(
-                Intent(this, SecondActivity::class.java)
-            )
+        binding.photoList.run {
+            setHasFixedSize(true)
+            adapter = PhotoRecyclerViewAdapter(SelectionListener {
+                openActivity<SecondActivity>()
+            })
         }
-
     }
 }

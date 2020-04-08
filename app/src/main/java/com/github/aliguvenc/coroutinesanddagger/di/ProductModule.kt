@@ -1,17 +1,18 @@
 package com.github.aliguvenc.coroutinesanddagger.di
 
-import com.github.aliguvenc.coroutinesanddagger.ProductApi
-import com.github.aliguvenc.coroutinesanddagger.ProductRepository
+import com.github.aliguvenc.coroutinesanddagger.PhotosApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 
-@Module
-abstract class ProductModule {
 
+@Module
+class ProductModule {
+
+    @ActivityScope
     @Provides
-    fun provideProductApi(retrofit: Retrofit): ProductApi = retrofit.create(
-        ProductApi::class.java
+    fun provideProductApi(retrofit: Retrofit): PhotosApi = retrofit.create(
+        PhotosApi::class.java
     )
 
 }

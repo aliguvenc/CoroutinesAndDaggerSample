@@ -2,13 +2,19 @@ package com.github.aliguvenc.coroutinesanddagger
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val productRepository: ProductRepository) :
+class MainViewModel @Inject constructor(private val photoRepository: PhotoRepository) :
     ViewModel() {
 
-    val products: LiveData<ApiResult<Product>> = liveData {
-        emitSource(productRepository.productResult)
+    val photos: LiveData<ApiResult<List<PhotoModel>>> = photoRepository.photoModelResult
+
+    init {
+        viewModelScope.launch {
+            photoRepository.getProducts()
+        }
     }
+
 }
